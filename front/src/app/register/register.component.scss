@@ -1,0 +1,135 @@
+.register-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4vh 5vw;
+    box-sizing: border-box;
+    background-color: #ffffff;
+  }
+  
+  /* ---------- TOP BAR ---------- */
+  .top-bar {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 2vh;
+  }
+  
+  .logo {
+    width: clamp(100px, 15vw, 160px);
+    height: auto;
+  }
+  
+  /* ---------- DIVIDER ---------- */
+  .divider {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #dcdcdc;
+    margin: 1vh 0 3vh 0;
+  }
+  
+  /* ---------- BACK BUTTON ---------- */
+  .back-section {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 4vh;
+  }
+  
+  .back-button {
+    background: none;
+    border: none;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    cursor: pointer;
+    color: #333;
+  }
+  
+  /* ---------- FORM SECTION ---------- */
+  .form-section {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .title {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    margin-bottom: 3vh;
+    text-align: left;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+  
+    label {
+      font-weight: 500;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      margin-bottom: 0.2rem; // уменьшенный отступ снизу
+    }
+  
+    input {
+      margin-bottom: 1.5rem; // расстояние до следующего label
+      margin-top: 0; 
+      padding: 1.2vh 1vw;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+  }
+  
+  
+  /* ---------- SUBMIT BUTTON ---------- */
+  .submit-button {
+    background-color: #5e5ce6;
+    color: white;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6em 1.8em;
+    margin-top: 2vh;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    // адаптивная ширина
+    width: 60%;
+    max-width: 250px;
+    min-width: 150px;
+    align-self: center;
+  
+    &:hover {
+      background-color: #4e4bd4;
+    }
+  }
+  
+  
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 768px) {
+    .top-bar {
+      flex-direction: column;
+      align-items: center;
+      padding-top: 1rem;
+      padding-bottom: 0;
+  
+      .logo {
+        width: 40vw; // увеличиваем логотип
+        max-width: 180px;
+        margin-bottom: 1rem;
+      }
+  
+      .back-button {
+        display: block;
+        position: absolute;
+        top: 0.5rem;
+        left: 1rem;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  }
+  

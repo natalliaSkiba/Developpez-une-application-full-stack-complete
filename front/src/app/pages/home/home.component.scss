@@ -1,7 +1,43 @@
-.center {
-  height: 100vh;
+.home-wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  text-align: center;
 }
+
+.logo {
+  max-width: 80%;
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+/* 📱 Мобильные устройства */
+@media (max-width: 600px) {
+  .button-group {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .button-group button {
+    width: 80%;
+    max-width: 300px;
+  }
+
+  .logo {
+    max-width: 60%;
+  }
+}
+
