@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/MDD
+    url: jdbc:postgresql://localhost:5432/mdd
     username: ad
     password: 123
   jpa:

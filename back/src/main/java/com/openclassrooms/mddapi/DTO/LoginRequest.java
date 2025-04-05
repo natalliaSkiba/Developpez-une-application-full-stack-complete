@@ -3,8 +3,7 @@ package com.openclassrooms.mddapi.DTO;
 import lombok.Data;
 
 @Data
-public class RegisterRequest {
-    private String username;
+public class LoginRequest {
     private String email;
     private String password;
 }
