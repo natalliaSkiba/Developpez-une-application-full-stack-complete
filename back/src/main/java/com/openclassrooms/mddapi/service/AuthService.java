@@ -31,6 +31,7 @@ public class AuthService {
         userRepository.save(user);
         return "Registration successful";
     }
+
     public String login(LoginRequest request) {
         Optional<User> userOpt = userRepository.findByEmail((request.getEmail()));
         if (userOpt.isPresent()) {
