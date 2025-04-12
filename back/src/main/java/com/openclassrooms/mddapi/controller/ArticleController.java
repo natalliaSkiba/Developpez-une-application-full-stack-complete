@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.controller;
 
+import com.openclassrooms.mddapi.DTO.ArticleCreateRequest;
 import com.openclassrooms.mddapi.model.Article;
 import com.openclassrooms.mddapi.service.ArticleService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,8 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<Article> createArticle(@RequestBody Article article) {
+    public ResponseEntity<Article> createArticle(@RequestBody ArticleCreateRequest article) {
+        System.out.println("Пришел запрос на создание статьи");
         return ResponseEntity.ok(articleService.createArticle(article));
     }
 

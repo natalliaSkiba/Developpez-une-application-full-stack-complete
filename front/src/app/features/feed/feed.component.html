@@ -1,0 +1,22 @@
+<div class="feed-container">
+    <div class="feed-header">
+      <button mat-raised-button color="primary" routerLink="/articles/create">Créer un article</button>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Trier par</mat-label>
+        <mat-select [(value)]="sortOption" (selectionChange)="onSortChange()">
+          <mat-option value="desc">Plus récent</mat-option>
+          <mat-option value="asc">Moins récent</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+    <div class="articles-grid">
+      <div class="article-card" *ngFor="let article of articles">
+        <h3>{{ article.title }}</h3>
+        <p><strong>{{ article.author }}</strong> - {{ article.createdAt | date }}</p>
+        <p>{{ article.content }}</p>
+      </div>
+    </div>
+  </div>
+  

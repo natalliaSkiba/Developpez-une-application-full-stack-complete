@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,6 +37,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "topic_id")
     )
     private List<Topic> subscriptions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Article> articles = new ArrayList<>();
 
     private LocalDateTime createdAt;
 

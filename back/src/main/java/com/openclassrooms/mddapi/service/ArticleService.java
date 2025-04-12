@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.service;
 
+import com.openclassrooms.mddapi.DTO.ArticleCreateRequest;
 import com.openclassrooms.mddapi.model.Article;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Optional;
 
 public interface ArticleService {
 
-    Article createArticle(Article article);
+    Article createArticle(ArticleCreateRequest article);
 
     List<Article> getAllArticles();
 

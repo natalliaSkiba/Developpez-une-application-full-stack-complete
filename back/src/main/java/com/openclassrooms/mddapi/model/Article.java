@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,6 +35,6 @@ public class Article {
 
     @PrePersist
     protected void onCreate() {
-        LocalDateTime createdAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
     }
 }
