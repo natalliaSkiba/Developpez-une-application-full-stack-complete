@@ -29,7 +29,6 @@ public class ArticleController {
 
     @PostMapping
     public ResponseEntity<Article> createArticle(@RequestBody ArticleCreateRequest article) {
-        System.out.println("Пришел запрос на создание статьи");
         return ResponseEntity.ok(articleService.createArticle(article));
     }
 

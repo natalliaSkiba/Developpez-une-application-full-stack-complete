@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,20 +16,24 @@ export class RegisterComponent {
   };
 
   message = '';
+  isError = true;
 
-  constructor(private http: HttpClient, private location: Location) {}
+  constructor(private authService: AuthService, private location: Location, private router: Router) {}
 
   onSubmit() {
-    this.http
-      .post('http://localhost:8080/auth/register', this.formData, {
-        responseType: 'text',
-      })
-      .subscribe({
+    this.authService.register(this.formData).subscribe({
         next: (res) => {
           this.message = res;
+          this.isError = false;
+          this.formData = { username: '', email: '', password: '' };
+
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 1500);
         },
-        error: () => {
-          this.message = 'Registration failed';
+        error: (err) => {
+          this.message = err.error;
+          this.isError = true;
         },
       });
   }

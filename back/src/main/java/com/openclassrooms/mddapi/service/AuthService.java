@@ -2,9 +2,12 @@ package com.openclassrooms.mddapi.service;
 
 import com.openclassrooms.mddapi.DTO.LoginRequest;
 import com.openclassrooms.mddapi.DTO.RegisterRequest;
+import com.openclassrooms.mddapi.exception.UserAlreadyExistsException;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repositiry.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,18 +17,19 @@ import java.util.Optional;
 public class AuthService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public String register (RegisterRequest request) {
+    public String register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
-            return "Email already in use";
+            throw new UserAlreadyExistsException("Email already in use");
         }
         if (userRepository.existsByUsername(request.getUsername())) {
-            return "Username already in use";
+            throw new UserAlreadyExistsException("Username already in use");
         }
         User user = User.builder()
                 .email(request.getEmail())
                 .username(request.getUsername())
-                .password(request.getPassword()) // TODO: encrypt password later
+                .password(passwordEncoder.encode(request.getPassword()))
                 .build();
 
         userRepository.save(user);
@@ -33,12 +37,20 @@ public class AuthService {
     }
 
     public String login(LoginRequest request) {
-        Optional<User> userOpt = userRepository.findByEmail((request.getEmail()));
+        Optional<User> userOpt;
+
+        if (request.getIdentifier().contains("@")) {
+            userOpt = userRepository.findByEmail(request.getIdentifier());
+        } else {
+            userOpt = userRepository.findByUsername(request.getIdentifier());
+        }
+
         if (userOpt.isPresent()) {
             User user = userOpt.get();
-            if ((user.getPassword().equals(request.getPassword()))) {
+            if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
                 return "Login successful";
             }
-        } return "Invalid credential";
+        }
+        throw new BadCredentialsException("Identifiants incorrects");
     }
 }
