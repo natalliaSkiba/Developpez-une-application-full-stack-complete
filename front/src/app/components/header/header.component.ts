@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,17 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   showMobileMenu = false;
+  
+  constructor(private router: Router) {}
 
   toggleMenu() {
     this.showMobileMenu = !this.showMobileMenu;
+  }
+
+  logout() {
+    this.toggleMenu(); 
+    localStorage.clear(); 
+    this.router.navigate(['/login']);
   }
 }
 

@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.controller;
 
+import com.openclassrooms.mddapi.DTO.TopicResponse;
 import com.openclassrooms.mddapi.model.Topic;
 import com.openclassrooms.mddapi.service.TopicService;
 import lombok.RequiredArgsConstructor;
@@ -33,4 +34,12 @@ public class TopicController {
         topicService.unsubscribe(userId, topicId);
         return ResponseEntity.ok("Unsubscribed successfully");
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<TopicResponse>> getAllTopicsWithStatus(@PathVariable Long userId) {
+        List<TopicResponse> topics = topicService.getAllTopicsWithSubscriptionStatus(userId);
+        return ResponseEntity.ok(topics);
+    }
+
+
 }

@@ -1,61 +1,67 @@
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+
+  .logo img {
+    max-height: 40px;
+    width: auto;
+  }
+
+  .nav-desktop {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    border-bottom: 1px solid #ddd;
-  
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #7d3cff;
-    }
-  
-    .nav-desktop {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-  
-      a {
-        text-decoration: none;
-      }
-  
-      .logout {
-        color: red;
-      }
-    }
-  
-    .mobile-toggle {
-      display: none;
-    }
-  }
-  
-  .mobile-menu {
-    display: none;
-    flex-direction: column;
-    padding: 1rem;
-  
-    a {
-      text-decoration: none;
-    }
-  
-    .logout {
+    gap: 1rem;
+
+    a.logout {
       color: red;
+      font-weight: bold;
     }
   }
-  
-  /* Адаптивность */
-  @media (max-width: 768px) {
+
+  .mobile-toggle {
+    display: none;
+  }
+}
+
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 1rem;
+  gap: 0.5rem;
+
+  a.logout {
+    color: red;
+    font-weight: bold;
+  }
+}
+
+/* Медиа-запрос для мобильных */
+@media (max-width: 768px) {
+  .header {
     .nav-desktop {
       display: none;
     }
-  
+
     .mobile-toggle {
       display: block;
     }
-  
-    .mobile-menu {
-      display: flex;
+
+    .logo img {
+      max-height: 30px;
     }
   }
-  
+
+  .mobile-menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}

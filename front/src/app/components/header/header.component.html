@@ -1,35 +1,35 @@
 <header class="header">
-    <!-- Логотип -->
-    <div class="logo">MDD</div>
-  
-    <!-- Меню для десктопа -->
-    <nav class="nav-desktop">
-      <a mat-button routerLink="/articles">Articles</a>
-      <a mat-button routerLink="/topics">Thèmes</a>
-      <a mat-button class="logout" href="#">Se déconnecter</a>
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>account_circle</mat-icon>
-      </button>
-    </nav>
-  
-    <!-- Иконка для мобильного -->
-    <div class="mobile-toggle">
-      <button mat-icon-button (click)="toggleMenu()">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </div>
-  </header>
-  
-  <!-- Мобильное меню (при нажатии) -->
-  <div class="mobile-menu" *ngIf="showMobileMenu">
-    <a mat-menu-item routerLink="/articles">Articles</a>
-    <a mat-menu-item routerLink="/topics">Thèmes</a>
-    <a mat-menu-item class="logout" href="#">Se déconnecter</a>
+  <!-- Логотип -->
+  <div class="logo">
+    <img src="/assets/logo_p6.png" alt="MDD logo" />
   </div>
-  
-  <!-- Angular Material menu (выпадающее меню аватара) -->
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="/profile">Profil</button>
-    <button mat-menu-item class="logout">Se déconnecter</button>
-  </mat-menu>
-  
+
+  <!-- Меню для десктопа -->
+  <nav class="nav-desktop">
+    <a mat-button routerLink="/articles">Articles</a>
+    <a mat-button routerLink="/topics">Thèmes</a>
+    <a mat-button class="logout" (click)="logout()">Se déconnecter</a>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </nav>
+
+  <!-- Иконка бургера для мобильного -->
+  <div class="mobile-toggle">
+    <button mat-icon-button (click)="toggleMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+</header>
+
+<!-- Мобильное меню -->
+<div class="mobile-menu" *ngIf="showMobileMenu">
+  <a mat-menu-item routerLink="/articles" (click)="toggleMenu()">Articles</a>
+  <a mat-menu-item routerLink="/topics" (click)="toggleMenu()">Thèmes</a>
+  <a mat-menu-item class="logout" (click)="logout()">Se déconnecter</a>
+</div>
+<!-- Выпадающее меню профиля -->
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="/profile">Profil</button>
+  <button mat-menu-item (click)="logout()">Se déconnecter</button>
+</mat-menu>

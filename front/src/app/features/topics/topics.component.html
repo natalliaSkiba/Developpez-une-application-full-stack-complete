@@ -1,0 +1,29 @@
+<div class="topics-container">
+    <mat-card class="topic-card" *ngFor="let topic of topics">
+      <mat-card-title>{{ topic.name }}</mat-card-title>
+      <mat-card-content>
+        <p>{{ topic.description }}</p>
+      </mat-card-content>
+      
+      <mat-card-actions>
+        <button
+          mat-flat-button
+          color="primary"
+          *ngIf="!topic.subscribed"
+          (click)="subscribe(topic)"
+        >
+          S’abonner
+        </button>
+  
+        <button
+          mat-flat-button
+          color="accent"
+          disabled
+          *ngIf="topic.subscribed"
+        >
+          Déjà abonné
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  

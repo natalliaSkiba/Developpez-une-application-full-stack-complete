@@ -1,0 +1,11 @@
+.topics-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+  
+  .topic-card {
+    padding: 1rem;
+  }
+  

@@ -18,6 +18,11 @@ const routes: Routes = [{ path: '', component: HomeComponent },
     loadChildren: () => import('./features/articles/article.module').then(m => m.ArticleModule)
   },
 
+  {
+    path: 'topics',
+    loadChildren: () => import('./features/topics/topics.module').then(m => m.TopicsModule)
+  },
+
   { path: '**', redirectTo: '' } 
 
 ];
