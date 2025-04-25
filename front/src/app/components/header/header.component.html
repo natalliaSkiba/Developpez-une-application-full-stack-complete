@@ -1,20 +1,19 @@
 <header class="header">
-  <!-- Логотип -->
+  
   <div class="logo">
     <img src="/assets/logo_p6.png" alt="MDD logo" />
   </div>
 
-  <!-- Меню для десктопа -->
   <nav class="nav-desktop">
-    <a mat-button routerLink="/articles">Articles</a>
-    <a mat-button routerLink="/topics">Thèmes</a>
     <a mat-button class="logout" (click)="logout()">Se déconnecter</a>
+    <a mat-button routerLink="/feed">Articles</a>
+    <a mat-button routerLink="/topics">Thèmes</a>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>account_circle</mat-icon>
     </button>
   </nav>
 
-  <!-- Иконка бургера для мобильного -->
+
   <div class="mobile-toggle">
     <button mat-icon-button (click)="toggleMenu()">
       <mat-icon>menu</mat-icon>
@@ -22,13 +21,17 @@
   </div>
 </header>
 
-<!-- Мобильное меню -->
 <div class="mobile-menu" *ngIf="showMobileMenu">
-  <a mat-menu-item routerLink="/articles" (click)="toggleMenu()">Articles</a>
-  <a mat-menu-item routerLink="/topics" (click)="toggleMenu()">Thèmes</a>
   <a mat-menu-item class="logout" (click)="logout()">Se déconnecter</a>
+  <a mat-menu-item routerLink="/feed" (click)="toggleMenu()">Articles</a>
+  <a mat-menu-item routerLink="/topics" (click)="toggleMenu()">Thèmes</a>
+  <div class="profile-icon">
+    <button mat-icon-button routerLink="/profile" (click)="toggleMenu()">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </div>
 </div>
-<!-- Выпадающее меню профиля -->
+
 <mat-menu #menu="matMenu">
   <button mat-menu-item routerLink="/profile">Profil</button>
   <button mat-menu-item (click)="logout()">Se déconnecter</button>

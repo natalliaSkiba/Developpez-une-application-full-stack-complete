@@ -7,14 +7,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CreateComponent } from './create/create.component';
 import { ArticleRoutingModule } from './article-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
 import { MatOptionModule } from '@angular/material/core';
+import { ArticleDetailsComponent } from './article-details/article-details.component';
 
 
 @NgModule({
-  declarations: [CreateComponent],
+  declarations: [CreateComponent, ArticleDetailsComponent],
   imports: [
     CommonModule,
     ArticleRoutingModule,
@@ -24,7 +25,8 @@ import { MatOptionModule } from '@angular/material/core';
     MatIconModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatOptionModule
+    MatOptionModule,
+    FormsModule
   ]
 })
 export class ArticleModule {}

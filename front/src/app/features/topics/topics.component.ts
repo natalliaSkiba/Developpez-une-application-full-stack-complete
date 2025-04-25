@@ -9,7 +9,7 @@ import { TopicResponse } from 'src/app/models/topic.model';
 })
 export class TopicsComponent implements OnInit {
   topics: TopicResponse [] = [];
-  userId = 1; // временно
+  userId = 2; // temp
 
   constructor(private topicService: TopicService) {}
 

@@ -1,34 +1,31 @@
 <div class="feed-container">
   <div class="feed-header">
-    <button mat-button color="primary">Créer un article</button>
+    <button mat-raised-button color="primary" routerLink="/articles/create">
+      Créer un article
+    </button>
 
     <mat-form-field appearance="fill">
       <mat-label>Trier par</mat-label>
-      <mat-select>
-        <mat-option value="recent">Plus récent</mat-option>
-        <mat-option value="ancien">Plus ancien</mat-option>
+      <mat-select [(value)]="sortOption" (selectionChange)="onSortChange()">
+        <mat-option value="desc">Plus récent</mat-option>
+        <mat-option value="asc">Plus ancien</mat-option>
       </mat-select>
     </mat-form-field>
-
-    
   </div>
 
+
   <div class="feed-grid">
-    <div class="article-card" *ngFor="let article of articles">
-      <h3>Titre de l’article</h3>
-      <div class="meta">
-        <span>
-          <strong>Date</strong>
-          {{ article.createdAt | date:'mediumDate' }}
-        </span>
-        <span>
-          <strong>Auteur</strong>
-          {{ article.author.username }}
-        </span>
-      </div>
-      <p class="content">
-        {{ article.content | slice:0:150 }}...
-      </p>
-    </div>
+    <mat-card class="article-card" *ngFor="let article of articles" [routerLink]="['/articles', article.id]">
+      <mat-card-title>{{ article.title }}</mat-card-title>
+      <mat-card-content>
+        <div class="meta">
+          <span><strong>Date</strong>: {{ article.createdAt | date:'mediumDate' }}</span>
+          <span><strong>Auteur</strong>: {{ article.author.username }}</span>
+        </div>
+        <p class="content clamped-text">
+          {{ article.content }}
+        </p>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

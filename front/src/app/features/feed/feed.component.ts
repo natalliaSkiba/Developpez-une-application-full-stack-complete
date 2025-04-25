@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Article, ArticleService } from 'src/app/services/article.service';
+import { ArticleService } from 'src/app/services/article.service';
+import { Article } from 'src/app/models/article.model';
 
 @Component({
   selector: 'app-feed',
@@ -9,11 +10,12 @@ import { Article, ArticleService } from 'src/app/services/article.service';
 export class FeedComponent implements OnInit {
   articles: Article[] = [];
   sortOption: 'asc' | 'desc' = 'desc';
+  userId = 2; //temp
 
   constructor(private articleService: ArticleService) {}
 
   ngOnInit(): void {
-    this.articleService.getAll().subscribe({
+    this.articleService.getFeedForUser(this.userId).subscribe({
       next: (data) => {
         this.articles = data;
         this.sortArticles();
