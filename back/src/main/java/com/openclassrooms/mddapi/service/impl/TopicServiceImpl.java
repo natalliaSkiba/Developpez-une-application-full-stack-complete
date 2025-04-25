@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.service;
+package com.openclassrooms.mddapi.service.impl;
 
 import com.openclassrooms.mddapi.DTO.TopicResponse;
 import com.openclassrooms.mddapi.exception.TopicNotFoundException;
@@ -7,6 +7,7 @@ import com.openclassrooms.mddapi.model.Topic;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repositiry.TopicRepository;
 import com.openclassrooms.mddapi.repositiry.UserRepository;
+import com.openclassrooms.mddapi.service.TopicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class TopicServiceImpl implements TopicService{
+public class TopicServiceImpl implements TopicService {
 
     private final TopicRepository topicRepository;
 

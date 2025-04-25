@@ -63,4 +63,11 @@ public class GlobalExceptionHandler {
                 .orElse("Invalid input");
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);}
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>> handleIllegalArgumentException(IllegalArgumentException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("message", ex.getMessage());
+        return ResponseEntity.badRequest().body(error);
+    }
 }

@@ -13,4 +13,6 @@ public interface ArticleRepository extends JpaRepository<Article,Long> {
 
     List<Article> findByAuthorId(Long userId);
 
-  }
+    List<Article> findByTopicInOrderByCreatedAtDesc(List<Topic> topics);
+
+}

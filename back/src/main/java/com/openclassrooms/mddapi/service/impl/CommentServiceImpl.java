@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.service;
+package com.openclassrooms.mddapi.service.impl;
 
 import com.openclassrooms.mddapi.exception.ArticleNotFoundException;
 import com.openclassrooms.mddapi.exception.UserNotFoundException;
@@ -8,6 +8,7 @@ import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repositiry.ArticleRepository;
 import com.openclassrooms.mddapi.repositiry.CommentRepository;
 import com.openclassrooms.mddapi.repositiry.UserRepository;
+import com.openclassrooms.mddapi.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

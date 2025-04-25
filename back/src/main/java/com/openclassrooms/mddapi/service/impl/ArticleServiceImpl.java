@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.service;
+package com.openclassrooms.mddapi.service.impl;
 
 import com.openclassrooms.mddapi.DTO.ArticleCreateRequest;
 import com.openclassrooms.mddapi.exception.ArticleNotFoundException;
@@ -10,6 +10,7 @@ import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repositiry.ArticleRepository;
 import com.openclassrooms.mddapi.repositiry.TopicRepository;
 import com.openclassrooms.mddapi.repositiry.UserRepository;
+import com.openclassrooms.mddapi.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -28,17 +29,17 @@ public class ArticleServiceImpl implements ArticleService {
     public Article createArticle(ArticleCreateRequest articleDto) {
         User author = userRepository.findById(articleDto.getAuthorId())
                 .orElseThrow(() -> new UserNotFoundException(articleDto.getAuthorId())); // getCurrentAuthenticatedUser();from SecurityContext
-        System.out.println("Пользователь найден: " + author.getUsername());
+
         Topic topic = topicRepository.findById(articleDto.getTopicId())
                 .orElseThrow(() -> new TopicNotFoundException(articleDto.getTopicId()));
-        System.out.println("Тема найдена: " + topic.getName());
+
         Article article = Article.builder()
                 .title(articleDto.getTitle())
                 .content(articleDto.getContent())
                 .topic(topic)
                 .author(author)
                 .build();
-        System.out.println("Сохраняем статью: " + article);
+
         return articleRepository.save(article);
     }
 
@@ -68,7 +69,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> getArticlesByUserId(Long userId) {
-        return articleRepository.findByAuthorId(userId);
+        User user = userRepository.findById(userId).orElseThrow(()-> new UserNotFoundException(userId));
+
+        List<Topic> subscription = user.getSubscriptions();
+
+        if (subscription.isEmpty()) {
+            return List.of();
+        }
+        return articleRepository.findByTopicInOrderByCreatedAtDesc(subscription);
     }
 
     @Override

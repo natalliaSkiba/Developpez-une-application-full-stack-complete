@@ -4,7 +4,6 @@ import com.openclassrooms.mddapi.DTO.ArticleCreateRequest;
 import com.openclassrooms.mddapi.model.Article;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ArticleService {
 
