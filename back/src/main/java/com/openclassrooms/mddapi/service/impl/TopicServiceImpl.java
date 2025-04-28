@@ -28,24 +28,24 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public void subscribe(Long userId, Long topicId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+    public void subscribe(String username, Long topicId) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         Topic topic = topicRepository.findById(topicId).orElseThrow(() -> new TopicNotFoundException(topicId));
         user.getSubscriptions().add(topic);
         userRepository.save(user);
     }
 
     @Override
-    public void unsubscribe(Long userId, Long topicId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+    public void unsubscribe(String username, Long topicId) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         Topic topic = topicRepository.findById(topicId).orElseThrow(() -> new TopicNotFoundException(topicId));
         user.getSubscriptions().remove(topic);
         userRepository.save(user);
     }
 
     @Override
-    public List<TopicResponse> getAllTopicsWithSubscriptionStatus(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(()-> new UserNotFoundException(userId));
+    public List<TopicResponse> getAllTopicsWithSubscriptionStatus(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(()-> new UserNotFoundException(username));
 
         List<Topic> allTopics = topicRepository.findAll();
         List<Topic> subscribedTopics = user.getSubscriptions();

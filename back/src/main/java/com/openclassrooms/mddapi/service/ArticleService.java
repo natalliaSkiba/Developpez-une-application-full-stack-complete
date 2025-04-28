@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ArticleService {
 
-    Article createArticle(ArticleCreateRequest article);
+    Article createArticle(ArticleCreateRequest article,String username);
 
     List<Article> getAllArticles();
 
@@ -17,8 +17,9 @@ public interface ArticleService {
 
     List<Article> getArticlesByTopicId(Long topicId);
 
-    List<Article> getArticlesByUserId(Long userId);
 
     List<Article> getArticlesSorted(String sortOrder);
+
+    List<Article> getArticlesByUser (String username);
 
 }

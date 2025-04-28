@@ -31,12 +31,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment addComment(Long articleId, Long userId, String content) {
+    public Comment addComment(Long articleId, String username, String content) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new ArticleNotFoundException(articleId));
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException(userId));
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         Comment comment = Comment.builder()
                 .content(content)

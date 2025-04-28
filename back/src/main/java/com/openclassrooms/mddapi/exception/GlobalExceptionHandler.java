@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -62,7 +61,8 @@ public class GlobalExceptionHandler {
                 .findFirst()
                 .orElse("Invalid input");
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);}
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+    }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, String>> handleIllegalArgumentException(IllegalArgumentException ex) {
@@ -70,4 +70,5 @@ public class GlobalExceptionHandler {
         error.put("message", ex.getMessage());
         return ResponseEntity.badRequest().body(error);
     }
+
 }

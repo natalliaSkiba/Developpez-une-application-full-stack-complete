@@ -5,6 +5,7 @@ import com.openclassrooms.mddapi.model.Topic;
 import com.openclassrooms.mddapi.service.TopicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,21 +24,24 @@ public class TopicController {
         return ResponseEntity.ok(topics);
     }
 
-    @PostMapping("/subscribe/{userId}/{topicId}")
-    public ResponseEntity<String> subscribeToTopic(@PathVariable Long userId, @PathVariable Long topicId) {
-        topicService.subscribe(userId, topicId);
+    @PostMapping("/subscribe/{topicId}")
+    public ResponseEntity<String> subscribeToTopic( @PathVariable Long topicId) {
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        topicService.subscribe(currentUsername, topicId);
         return ResponseEntity.ok("Subscribed successfully");
     }
 
-    @PostMapping("/unsubscribe/{userId}/{topicId}")
-    public ResponseEntity<String> unsubscribeFromTopic(@PathVariable Long userId, @PathVariable Long topicId) {
-        topicService.unsubscribe(userId, topicId);
+    @PostMapping("/unsubscribe/{topicId}")
+    public ResponseEntity<String> unsubscribeFromTopic( @PathVariable Long topicId) {
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        topicService.unsubscribe(currentUsername, topicId);
         return ResponseEntity.ok("Unsubscribed successfully");
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<TopicResponse>> getAllTopicsWithStatus(@PathVariable Long userId) {
-        List<TopicResponse> topics = topicService.getAllTopicsWithSubscriptionStatus(userId);
+    @GetMapping("/subscriptions")
+    public ResponseEntity<List<TopicResponse>> getAllTopicsWithStatus() {
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<TopicResponse> topics = topicService.getAllTopicsWithSubscriptionStatus(currentUsername);
         return ResponseEntity.ok(topics);
     }
 

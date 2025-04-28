@@ -26,9 +26,9 @@ public class ArticleServiceImpl implements ArticleService {
     private final TopicRepository topicRepository;
 
     @Override
-    public Article createArticle(ArticleCreateRequest articleDto) {
-        User author = userRepository.findById(articleDto.getAuthorId())
-                .orElseThrow(() -> new UserNotFoundException(articleDto.getAuthorId())); // getCurrentAuthenticatedUser();from SecurityContext
+    public Article createArticle(ArticleCreateRequest articleDto, String username) {
+        User author = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         Topic topic = topicRepository.findById(articleDto.getTopicId())
                 .orElseThrow(() -> new TopicNotFoundException(articleDto.getTopicId()));
@@ -67,17 +67,6 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findByTopicId(topicId);
     }
 
-    @Override
-    public List<Article> getArticlesByUserId(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(()-> new UserNotFoundException(userId));
-
-        List<Topic> subscription = user.getSubscriptions();
-
-        if (subscription.isEmpty()) {
-            return List.of();
-        }
-        return articleRepository.findByTopicInOrderByCreatedAtDesc(subscription);
-    }
 
     @Override
     public List<Article> getArticlesSorted(String sortOrder) {
@@ -86,6 +75,13 @@ public class ArticleServiceImpl implements ArticleService {
         } else {
             return articleRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
         }
+    }
+
+    @Override
+    public List<Article> getArticlesByUser(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
+        return articleRepository.findByAuthor(user);
     }
 }
 

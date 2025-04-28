@@ -2,14 +2,17 @@ package com.openclassrooms.mddapi.service;
 
 import com.openclassrooms.mddapi.DTO.LoginRequest;
 import com.openclassrooms.mddapi.DTO.RegisterRequest;
+import com.openclassrooms.mddapi.config.JwtUtil;
 import com.openclassrooms.mddapi.exception.UserAlreadyExistsException;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repositiry.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -18,6 +21,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     public String register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
@@ -48,7 +52,10 @@ public class AuthService {
         if (userOpt.isPresent()) {
             User user = userOpt.get();
             if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-                return "Login successful";
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                        user.getEmail(), null, new ArrayList<>()
+                );
+                return jwtUtil.generateToken(authenticationToken);
             }
         }
         throw new BadCredentialsException("Identifiants incorrects");

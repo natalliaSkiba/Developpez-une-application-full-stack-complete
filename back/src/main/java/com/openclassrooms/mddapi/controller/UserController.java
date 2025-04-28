@@ -5,6 +5,7 @@ import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,15 +17,16 @@ import javax.validation.Valid;
 public class UserController {
     private  final UserService userService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.getUserById(id));
+    @GetMapping("/profile")
+    public ResponseEntity<User> getUserById() {
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ResponseEntity.ok(userService.getUserByUsername(currentUsername));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id,
-                                           @Valid @RequestBody UpdateUserRequest request) {
-        return ResponseEntity.ok(userService.updateUser(id, request));
+    @PutMapping("/profile")
+    public ResponseEntity<User> updateUser(@Valid @RequestBody UpdateUserRequest request) {
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ResponseEntity.ok(userService.updateUser(currentUsername, request));
     }
 
 }

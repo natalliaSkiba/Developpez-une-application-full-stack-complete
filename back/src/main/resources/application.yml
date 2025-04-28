@@ -10,3 +10,5 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 server:
   port: 8080
+jwt:
+  secret: "12345678901234567890123456789012"

@@ -12,17 +12,19 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(id));
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
     }
 
     @Override
-    public User updateUser(long id, UpdateUserRequest request) {
-        User user = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(id));
+    public User updateUser(String username, UpdateUserRequest request) {
+        User user = userRepository.findByUsername(username).orElseThrow(()-> new UserNotFoundException(username));
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
 

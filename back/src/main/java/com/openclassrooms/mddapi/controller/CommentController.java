@@ -4,6 +4,7 @@ import com.openclassrooms.mddapi.model.Comment;
 import com.openclassrooms.mddapi.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,11 +27,11 @@ public class CommentController {
     @PostMapping
     public ResponseEntity<Comment> addComment(
             @PathVariable Long articleId,
-            @RequestParam Long userId,
             @RequestParam String comment
     ){
-        Comment createComment = commentService.addComment(articleId,userId,comment);
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        Comment createdComment = commentService.addComment(articleId, currentUsername, comment);
 
-        return ResponseEntity.ok(createComment);
+        return ResponseEntity.ok(createdComment);
     }
 }

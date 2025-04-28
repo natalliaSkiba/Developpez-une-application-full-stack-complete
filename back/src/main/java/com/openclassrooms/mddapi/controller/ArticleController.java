@@ -5,6 +5,7 @@ import com.openclassrooms.mddapi.model.Article;
 import com.openclassrooms.mddapi.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +30,8 @@ public class ArticleController {
 
     @PostMapping
     public ResponseEntity<Article> createArticle(@RequestBody ArticleCreateRequest article) {
-        return ResponseEntity.ok(articleService.createArticle(article));
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ResponseEntity.ok(articleService.createArticle(article,currentUsername));
     }
 
     @GetMapping("/{id}")
@@ -43,9 +45,10 @@ public class ArticleController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/feed/{userId}")
-    public ResponseEntity<List<Article>> getArticlesByUserId(@PathVariable Long userId) {
-        return ResponseEntity.ok(articleService.getArticlesByUserId(userId));
+    @GetMapping("/feed")
+    public ResponseEntity<List<Article>> getArticlesByUser() {
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ResponseEntity.ok(articleService.getArticlesByUser(currentUsername));
     }
 
     @GetMapping("/sorted")

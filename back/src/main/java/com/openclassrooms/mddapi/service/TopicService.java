@@ -8,10 +8,10 @@ import java.util.List;
 public interface TopicService {
     List<Topic> getAllTopics();
 
-    void subscribe(Long userId, Long topicId);
+    void subscribe(String username, Long topicId);
 
-    void unsubscribe(Long userId, Long topicId);
+    void unsubscribe(String username, Long topicId);
 
-    List<TopicResponse> getAllTopicsWithSubscriptionStatus(Long userId);
+    List<TopicResponse> getAllTopicsWithSubscriptionStatus(String username);
 
 }
