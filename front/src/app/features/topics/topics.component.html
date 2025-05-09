@@ -1,5 +1,7 @@
 <div class="topics-container">
-    <mat-card class="topic-card" *ngFor="let topic of topics">
+    <mat-card class="topic-card" *ngFor="let topic of topics"
+    (click)="goToTopicArticles(topic.id)"  
+    style="cursor: pointer;">
       <mat-card-title>{{ topic.name }}</mat-card-title>
       <mat-card-content>
         <p>{{ topic.description }}</p>
@@ -10,7 +12,7 @@
           mat-flat-button
           color="primary"
           *ngIf="!topic.subscribed"
-          (click)="subscribe(topic)"
+          (click)="subscribe(topic); $event.stopPropagation()"
         >
           S’abonner
         </button>

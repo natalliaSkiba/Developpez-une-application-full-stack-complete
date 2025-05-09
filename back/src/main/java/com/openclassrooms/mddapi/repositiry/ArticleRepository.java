@@ -12,8 +12,5 @@ import java.util.List;
 public interface ArticleRepository extends JpaRepository<Article,Long> {
     List<Article> findByTopicId(Long topicId);
 
-    List<Article> findByAuthor(User username);
-
     List<Article> findByTopicInOrderByCreatedAtDesc(List<Topic> topics);
-
 }

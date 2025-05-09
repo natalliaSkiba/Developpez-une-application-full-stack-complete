@@ -15,7 +15,6 @@ export class ProfileComponent implements OnInit {
     private topicService: TopicService
   ) {}
   user: User = {
-    id: 2,
     username: '',
     email: '',
     password: '',
@@ -26,11 +25,11 @@ export class ProfileComponent implements OnInit {
   subscriptions: TopicResponse[] = [];
 
   ngOnInit(): void {
-    this.userService.getUserById(this.user.id).subscribe({
+    this.userService.getProfile().subscribe({
       next: (data) => {
         this.user = { ...data, password: '' };
 
-        this.topicService.getAllTopicsForUser(this.user.id).subscribe({
+        this.topicService.getAllTopicsWithStatus().subscribe({
           next: (topics) => {
             this.subscriptions = topics.filter((topics) => topics.subscribed);
           },
@@ -45,23 +44,25 @@ export class ProfileComponent implements OnInit {
   }
 
   saveProfile(): void {
-   this.message = '';
-    this.userService.updateUser(this.user.id, this.user).subscribe({
-      next: () => {
-        alert('Profil mis à jour avec succès !');
+    this.message = '';
+    this.userService.updateUser(this.user).subscribe({
+      next: (response) => {
+        const newToken = response.token;
+        console.log('>>> Новый токен: ', response.token);
+        localStorage.setItem('token', newToken);
+        this.message = 'Profil mis à jour avec succès !';
+        this.isError = false;
         this.user.password = '';
-       
       },
       error: (err) => {
         console.error('Erreur lors de la mise à jour du profil.', err);
         this.message = err.error?.message || 'Erreur inconnue du serveur.';
-       
       },
     });
   }
 
   unsubscribe(topicId: number): void {
-    this.topicService.unsubscribeFromTopic(this.user.id, topicId).subscribe({
+    this.topicService.unsubscribeFromTopic(topicId).subscribe({
       next: () => {
         this.subscriptions = this.subscriptions.filter(
           (sub) => sub.id !== topicId

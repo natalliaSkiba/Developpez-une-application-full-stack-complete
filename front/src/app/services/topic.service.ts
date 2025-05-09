@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Topic, TopicResponse } from '../models/topic.model';
-
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TopicService {
-  private apiUrl = 'http://localhost:8080/topics';
+  
+  private apiUrl =  `${environment.apiUrl}/topics`;
 
   constructor(private http: HttpClient) {}
 
@@ -16,20 +17,21 @@ export class TopicService {
     return this.http.get<Topic[]>(this.apiUrl);
   }
 
-  subscribeToTopic(userId: number, topicId: number): Observable<string> {
-    return this.http.post(`${this.apiUrl}/subscribe/${userId}/${topicId}`, null, {
+  subscribeToTopic( topicId: number): Observable<string> {
+    return this.http.post(`${this.apiUrl}/subscribe/${topicId}`, null, {
       responseType: 'text',
     });
   }
   
-  unsubscribeFromTopic(userId: number, topicId: number): Observable<string> {
-    return this.http.post(`${this.apiUrl}/unsubscribe/${userId}/${topicId}`, null, {
+  unsubscribeFromTopic( topicId: number): Observable<string> {
+    return this.http.post(`${this.apiUrl}/unsubscribe/${topicId}`, null, {
       responseType: 'text',
     });
   }
 
-  getAllTopicsForUser(userId: number): Observable<TopicResponse[]> {
-    return this.http.get<TopicResponse[]>(`${this.apiUrl}/${userId}`);
+  getAllTopicsWithStatus(): Observable<TopicResponse[]>{
+    return this.http.get<TopicResponse[]>(`${this.apiUrl}/subscriptions`);
   }
+  
   
 }

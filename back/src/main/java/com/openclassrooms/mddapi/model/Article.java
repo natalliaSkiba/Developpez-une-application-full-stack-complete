@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode(of = "id")
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,21 +1,31 @@
 package com.openclassrooms.mddapi.config;
 
-
 import com.openclassrooms.mddapi.exception.InvalidTokenException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.*;
-import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Utility class for generating and validating JWT tokens.
+ *
+ * Uses Spring Security's JwtEncoder and JwtDecoder to work with signed tokens.
+ */
 @AllArgsConstructor
 public class JwtUtil {
     private final JwtEncoder jwtEncoder;
     private final JwtDecoder jwtDecoder;
 
+
+    /**
+     * Generates a JWT token for the authenticated user.
+     *
+     * @param authentication the authenticated user
+     * @return the generated JWT token as a String
+     */
     public String generateToken(Authentication authentication) {
         Instant now = Instant.now();
         JwtClaimsSet claims = JwtClaimsSet.builder()
@@ -28,6 +38,13 @@ public class JwtUtil {
         return this.jwtEncoder.encode(jwtEncoderParameters).getTokenValue();
     }
 
+    /**
+     * Extracts the username (subject) from the provided JWT token.
+     *
+     * @param token the JWT token to decode
+     * @return the username (subject) from the token
+     * @throws InvalidTokenException if the token is invalid or expired
+     */
     public String extractUsername(String token) {
         try {
             Jwt decodedJwt = jwtDecoder.decode(token);

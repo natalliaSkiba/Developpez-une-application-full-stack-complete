@@ -5,6 +5,8 @@ import { ArticleService } from 'src/app/services/article.service';
 import { Route, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Topic } from 'src/app/models/topic.model';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-create-article',
@@ -29,7 +31,7 @@ export class CreateComponent implements OnInit {
       title: ['', Validators.required],
       content: ['', Validators.required]
     });
-    this.http.get<Topic[]>('http://localhost:8080/topics')
+    this.http.get<Topic[]>(`${environment.apiUrl}/topics`)
     .subscribe(data => {
       this.topics = data;
     });
@@ -37,16 +39,14 @@ export class CreateComponent implements OnInit {
 
   onSubmit(): void {
     if (this.articleForm.valid) {
-      console.log('Нажали кнопку создать');
-      console.log('Значение формы:', this.articleForm.value);
-    
+   
       const formValue = this.articleForm.value;
   
       const articleToCreate = {
         title: formValue.title,
         content: formValue.content,
         topicId: formValue.topicId,
-        authorId: 1, // заменим позже на текущего пользователя
+       
       };
   
       this.articleService.createArticle(articleToCreate).subscribe({

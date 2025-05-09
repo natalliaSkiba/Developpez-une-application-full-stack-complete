@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TopicService } from 'src/app/services/topic.service';
 import { TopicResponse } from 'src/app/models/topic.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-topics',
@@ -9,15 +10,19 @@ import { TopicResponse } from 'src/app/models/topic.model';
 })
 export class TopicsComponent implements OnInit {
   topics: TopicResponse [] = [];
-  userId = 2; // temp
+  
 
-  constructor(private topicService: TopicService) {}
+  constructor(private topicService: TopicService, private router:Router) {}
 
   ngOnInit(): void {
-    this.topicService.getAllTopicsForUser(this.userId).subscribe((data) => {
+    
+    this.topicService.getAllTopicsWithStatus().subscribe((data) => {
       this.topics = data;
 
     });
+  }
+  goToTopicArticles(topicId: number): void {
+    this.router.navigate(['/feed/topic', topicId, 'articles']);
   }
 
   isSubscribed(topic: TopicResponse): boolean {
@@ -25,13 +30,13 @@ export class TopicsComponent implements OnInit {
   }
 
   subscribe(topic: TopicResponse): void {
-    this.topicService.subscribeToTopic(this.userId, topic.id).subscribe(() => {
+    this.topicService.subscribeToTopic( topic.id).subscribe(() => {
       topic.subscribed = true;
     });
   }
 
   unsubscribe(topic: TopicResponse): void {
-    this.topicService.unsubscribeFromTopic(this.userId, topic.id).subscribe(() => {
+    this.topicService.unsubscribeFromTopic( topic.id).subscribe(() => {
       topic.subscribed = false;
     });
   }

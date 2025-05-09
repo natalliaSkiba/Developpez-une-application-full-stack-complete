@@ -9,6 +9,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service implementation for managing user accounts.
+ *
+ * Provides methods to retrieve a user by username and to update user profile information,
+ * including username, email, and password.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -22,9 +28,35 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundException(username));
     }
 
+    /**
+     * Updates the profile information of the current user, including username, email, and optionally password.
+     * <p>
+     * Before updating, this method checks:
+     * <ul>
+     *     <li>If the new username is different and already taken — throws an error</li>
+     *     <li>If the new email is different and already taken — throws an error</li>
+     *     <li>If the new password is present — validates its strength and encodes it</li>
+     * </ul>
+     *
+     * @param username the current authenticated username (extracted from token)
+     * @param request the new profile data (username, email, optional password)
+     * @return the updated User entity
+     * @throws UserNotFoundException if the user is not found
+     * @throws IllegalArgumentException if the new username/email is already used, or password is invalid
+     */
     @Override
     public User updateUser(String username, UpdateUserRequest request) {
-        User user = userRepository.findByUsername(username).orElseThrow(()-> new UserNotFoundException(username));
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+
+        if (!user.getUsername().equals(request.getUsername()) &&
+                userRepository.existsByUsername(request.getUsername())) {
+            throw new IllegalArgumentException("Ce nom d'utilisateur est déjà utilisé.");
+        }
+
+        if (!user.getEmail().equals(request.getEmail()) &&
+                userRepository.existsByEmail(request.getEmail())) {
+            throw new IllegalArgumentException("Cet email est déjà utilisé.");
+        }
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
 
@@ -34,6 +66,11 @@ public class UserServiceImpl implements UserService {
             }
             user.setPassword(passwordEncoder.encode(request.getPassword()));
         }
-        return userRepository.save(user);
+        try {
+            return userRepository.save(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 }

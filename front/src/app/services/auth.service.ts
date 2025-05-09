@@ -1,24 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/auth';
+  private apiUrl =  `${environment.apiUrl}/api/auth`;
 
   constructor(private http: HttpClient) {}
 
   register(data: { username: string; email: string; password: string }): Observable<string> {
     return this.http.post(this.apiUrl + '/register', data, {
-      responseType: 'text' //  потому что backend возвращает String
+      responseType: 'text' 
     });
   }
 
-  login(data: { identifier: string; password: string }): Observable<string> {
-    return this.http.post(this.apiUrl + '/login', data, {
-      responseType: 'text'
-    });
-  }
+  login(data: { identifier: string; password: string }): Observable<{token:string}> {
+    return this.http.post<{token:string}>(this.apiUrl + '/login', data)};
 }

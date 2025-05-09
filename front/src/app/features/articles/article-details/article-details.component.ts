@@ -15,8 +15,7 @@ export class ArticleDetailsComponent implements OnInit {
   article!: Article;
   comments: Comment[] = [];
   newComment: string = '';
-  userId: number =2; //temp
-
+ 
   constructor(
     private route: ActivatedRoute,
     private articleService: ArticleService,
@@ -43,9 +42,9 @@ export class ArticleDetailsComponent implements OnInit {
   submitComment(): void {
     if (!this.newComment.trim()) return;
 
-    this.commentService.addComment(this.articleId, this.userId, this.newComment.trim()).subscribe(() => {
+    this.commentService.addComment(this.articleId,  this.newComment.trim()).subscribe(() => {
       this.newComment = '';
-      this.loadComments(); // обновляем список комментариев после отправки
+      this.loadComments(); 
     });
   }
 }

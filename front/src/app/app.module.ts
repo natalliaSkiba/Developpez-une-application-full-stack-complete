@@ -12,6 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderModule } from './components/header/header.module';
 import { ArticleRoutingModule } from './features/articles/article-routing.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
 
 
 
@@ -30,7 +32,11 @@ import { ArticleRoutingModule } from './features/articles/article-routing.module
     HeaderModule,
     ArticleRoutingModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -17,7 +17,7 @@ export class HeaderComponent {
 
   logout() {
     this.toggleMenu(); 
-    localStorage.clear(); 
+    localStorage.removeItem('token'); 
     this.router.navigate(['/login']);
   }
 }

@@ -23,7 +23,8 @@ export class LoginComponent {
     this.authService.login(this.credentials)
     .subscribe({
       next: (res) =>{
-        this.message = res;
+        localStorage.setItem('token', res.token);
+        this.message = "Connexion réussie !";
         this.isError = false;
 
         setTimeout(() => {

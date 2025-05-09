@@ -14,6 +14,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service implementation for managing comments on articles.
+ *
+ * Provides methods to retrieve comments for a specific article and to add new comments.
+ */
 @Service
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
@@ -22,6 +27,14 @@ public class CommentServiceImpl implements CommentService {
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
 
+
+    /**
+     * Retrieves all comments related to a specific article.
+     *
+     * @param articleId the ID of the article
+     * @return a list of comments associated with the article
+     * @throws ArticleNotFoundException if the article does not exist
+     */
     @Override
     public List<Comment> getCommentsByArticleId(Long articleId) {
         Article article = articleRepository.findById(articleId)
@@ -30,6 +43,16 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.findByArticle(article);
     }
 
+    /**
+     * Adds a new comment to the specified article, posted by the given user.
+     *
+     * @param articleId the ID of the article
+     * @param username the username of the comment author
+     * @param content the comment text
+     * @return the created Comment entity
+     * @throws ArticleNotFoundException if the article does not exist
+     * @throws UserNotFoundException if the user does not exist
+     */
     @Override
     public Comment addComment(Long articleId, String username, String content) {
         Article article = articleRepository.findById(articleId)

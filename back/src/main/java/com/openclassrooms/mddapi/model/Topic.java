@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode(of = "id")
 public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

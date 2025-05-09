@@ -53,7 +53,7 @@ public class AuthService {
             User user = userOpt.get();
             if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                        user.getEmail(), null, new ArrayList<>()
+                        user.getUsername(), null, new ArrayList<>()
                 );
                 return jwtUtil.generateToken(authenticationToken);
             }
