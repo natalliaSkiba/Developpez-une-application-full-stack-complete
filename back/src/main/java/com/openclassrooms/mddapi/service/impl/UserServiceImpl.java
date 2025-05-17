@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * Service implementation for managing user accounts.
- *
+ * <p>
  * Provides methods to retrieve a user by username and to update user profile information,
  * including username, email, and password.
  */
@@ -39,9 +39,9 @@ public class UserServiceImpl implements UserService {
      * </ul>
      *
      * @param username the current authenticated username (extracted from token)
-     * @param request the new profile data (username, email, optional password)
+     * @param request  the new profile data (username, email, optional password)
      * @return the updated User entity
-     * @throws UserNotFoundException if the user is not found
+     * @throws UserNotFoundException    if the user is not found
      * @throws IllegalArgumentException if the new username/email is already used, or password is invalid
      */
     @Override
@@ -52,12 +52,12 @@ public class UserServiceImpl implements UserService {
                 userRepository.existsByUsername(request.getUsername())) {
             throw new IllegalArgumentException("Ce nom d'utilisateur est déjà utilisé.");
         }
+        user.setUsername(request.getUsername());
 
         if (!user.getEmail().equals(request.getEmail()) &&
                 userRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("Cet email est déjà utilisé.");
         }
-        user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
 
         if (request.getPassword() != null && !request.getPassword().isBlank()) {
