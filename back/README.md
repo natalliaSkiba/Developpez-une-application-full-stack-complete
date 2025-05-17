@@ -18,19 +18,19 @@ It provides endpoints for user authentication, topic subscriptions, article crea
 
 ## 🛠️ Technologies Used
 
-| Component     | Technology                               |
-|---------------|-------------------------------------------|
-| Language      | Java 21                                   |
+| Component     | Technology                                    |
+|---------------|-----------------------------------------------|
+| Language      | Java 11                                       |
 | Framework     | Spring Boot, Spring Security, Spring Data JPA |
-| Database      | PostgreSQL                                |
-| Auth          | JWT (JSON Web Token)                      |
-| Build Tool    | Maven                                     |
+| Database      | PostgreSQL                                    |
+| Auth          | JWT (JSON Web Token)                          |
+| Build Tool    | Maven                                         |
 
 ---
 
 ## 📦 Requirements
 
-- Java 21+
+- Java 11
 - Maven
 - PostgreSQL running locally
 
