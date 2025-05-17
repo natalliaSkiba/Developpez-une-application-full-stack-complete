@@ -1,0 +1,196 @@
+.article-details-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+  
+    .article-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+  
+      button {
+        margin-top: 0.3rem;
+        min-width: 0;
+        width: 5rem;
+        height: 5rem;
+  
+        mat-icon {
+          font-size: 2rem;
+        }
+      }
+  
+      .header-content {
+        flex: 1;
+  
+        h2 {
+          margin: 0 0 1rem 0;
+          font-weight: bold;
+          font-size: 1.5rem;
+        }
+  
+        .meta {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 2rem;
+          font-size: 0.95rem;
+          color: #555;
+          margin-bottom: 1.5rem;
+        }
+  
+        .content {
+          font-size: 1.1rem;
+          line-height: 1.6;
+          margin-bottom: 2rem;
+        }
+      }
+    }
+  
+    h3 {
+      margin-top: 0.1rem;
+      margin-left: 6rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .article-separator {
+        border: none;
+        border-top: 1px solid #ccc;
+        margin: 1.5rem 0;
+      }
+  
+    .comments {
+      margin-top: 1rem;
+      margin-left: 0.1rem;
+  
+      .comment {
+        display: flex;
+        align-items: flex-start;
+        gap: 0rem;
+        margin-bottom: 1rem;
+        margin-left: 10rem;
+  
+        .username {
+          font-weight: bold;
+          width: 6rem;
+          font-size: 1.2rem;
+        }
+  
+        .bubble {
+          background: #f2f2f2;
+          border-radius: 1rem;
+          padding: 1rem;
+          position: relative;
+          flex: 1;
+  
+          .avatar {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            position: absolute;
+            right: -1rem;
+            bottom: -1rem;
+            border: 2px solid white;
+            background: white;
+          }
+        }
+      }
+    }
+  
+    .comment-form {
+      display: flex;
+      position: relative;
+      margin-top: 2rem;
+      margin-left: 10rem;
+      .comment-field {
+        flex: 1;
+         textarea {
+          resize: none;
+        }
+      }
+  
+      .send-button {
+        position: absolute;
+        right: -4rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+ 
+        img {
+            width: 2rem;
+            height: 2rem;
+        }
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .article-details-container {
+      padding: 0.5rem;
+  
+      .title-bar {
+        flex-direction: row;
+  
+        h2 {
+          font-size: 1.2rem;
+        }
+  
+        button {
+          width: 2rem;
+          height: 2rem;
+        }
+      }
+  
+      h3 {
+        margin: 0 0 1rem 0.7rem; // убрали отступ слева
+        font-weight: normal;     
+        font-size: 1.1rem;
+        text-align: left;
+      }
+  
+      .meta {
+        flex-direction: column;
+      }
+  
+      .comments {
+        margin-top: 1rem;
+  
+        .comment {
+          flex-direction: column;
+          margin-left: 0;
+  
+          .username {
+            font-weight: normal;     
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            align-self: flex-end;
+          }
+  
+          .bubble {
+            width: 90%;             // на всю ширину
+            background: #f2f2f2;
+            border-radius: 1rem;
+            padding: 1rem;
+          }
+        }
+      }
+  
+      .comment-form {
+        flex-direction: column;
+        margin: 1rem 0 0;
+        padding-right: 3rem;
+        
+  
+        .send-button {
+          right: 0.1rem;
+         // bottom: 1rem;
+  
+          img {
+            width: 1.6rem;
+            height: 1.6rem;
+          }
+        }
+      }
+    }
+  }
+  

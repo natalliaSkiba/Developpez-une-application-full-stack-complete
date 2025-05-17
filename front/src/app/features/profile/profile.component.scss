@@ -1,0 +1,81 @@
+.profile-container {
+   max-width: 30%;
+    margin: 1rem auto 0 auto;
+    padding: 1rem 1rem 0 1rem;
+    @media (max-width: 768px) {
+        max-width: 90%; 
+      }
+  
+    h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+  
+    .profile-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+  
+      .input-field {
+        width: 100%;
+      }
+  
+      button {
+        align-self: center;
+      }
+    }
+    .error {
+        color: red;
+        margin-top: 1rem;
+      }
+}
+ 
+    
+.topics-container{
+    display: grid;
+    max-width: 90%;
+    margin: 2rem auto;
+    //padding: 1rem;
+
+    .separator {
+      width: 90%;
+      align-self: center;
+      border-top: 0.001rem solid #ccc;
+      margin: 1rem 0;
+    }
+    h3 {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+    .subscriptions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      
+        .subscription-card {
+          background-color: #f5f5f5;
+          border-radius: 1rem;
+          padding: 1rem;
+          margin: 1rem;
+      
+          .title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+          }
+      
+          .description {
+            font-size: 0.9rem;
+            color: #444;
+            margin-bottom: 1rem;
+          }
+      
+          mat-card-actions {
+            display: flex;
+            justify-content: center;
+      
+          }
+        }
+      }}

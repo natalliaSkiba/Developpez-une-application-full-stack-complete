@@ -1,0 +1,50 @@
+<div class="article-details-container" *ngIf="article">
+  <div class="article-header">
+    <div class="title-bar">
+      <button mat-icon-button routerLink="/feed" aria-label="Retour">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </div>
+    <div class="header-content">
+      <h2>{{ article.title }}</h2>
+      <div class="meta">
+        <span
+          ><strong>Date :</strong>
+          {{ article.createdAt | date : "medium" }}</span
+        >
+        <span><strong>Auteur :</strong> {{ article.author.username }}</span>
+        <span><strong>Thème :</strong> {{ article.topic.name }}</span>
+      </div>
+      <div class="content">
+        <p>{{ article.content }}</p>
+      </div>
+      <hr class="article-separator" />
+    </div>
+  </div>
+
+  <h3>Commentaires</h3>
+  <div class="comments">
+    <div class="comment" *ngFor="let c of comments">
+      <span class="username">{{ c.author.username }}</span>
+      <div class="bubble">
+        <span>{{ c.content }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="comment-form">
+    <mat-form-field appearance="outline" class="comment-field">
+      <mat-label>Écrivez ici votre commentaire</mat-label>
+      <textarea matInput [(ngModel)]="newComment" rows="3"></textarea>
+    </mat-form-field>
+
+    <button
+      mat-icon-button
+      class="send-button"
+      (click)="submitComment()"
+      [disabled]="!newComment.trim()"
+    >
+      <img src="/assets/icons8.png" alt="Envoyer" />
+    </button>
+  </div>
+</div>
