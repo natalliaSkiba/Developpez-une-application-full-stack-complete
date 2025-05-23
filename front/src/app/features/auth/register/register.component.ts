@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnDestroy {
   formData = {
     username: '',
     email: '',
@@ -17,11 +18,19 @@ export class RegisterComponent {
 
   message = '';
   isError = true;
+  private destroy$ = new Subject<void>();
 
-  constructor(private authService: AuthService, private location: Location, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private location: Location,
+    private router: Router
+  ) {}
 
   onSubmit() {
-    this.authService.register(this.formData).subscribe({
+    this.authService
+      .register(this.formData)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
         next: (res) => {
           this.message = res;
           this.isError = false;
@@ -38,6 +47,10 @@ export class RegisterComponent {
       });
   }
   goBack() {
-    this.location.back(); 
+    this.location.back();
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

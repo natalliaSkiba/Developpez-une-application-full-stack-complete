@@ -11,7 +11,7 @@ It provides endpoints for user authentication, topic subscriptions, article crea
 - Topic subscription
 - Article publication and filtering
 - Comment system
-- Profile and subscription management
+- Profile and subscription management 
 - RESTful API consumed by Angular frontend
 
 ---
