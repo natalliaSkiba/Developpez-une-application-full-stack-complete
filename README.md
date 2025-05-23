@@ -1,25 +1,17 @@
-# P6-Full-Stack-reseau-dev
+# 🌐 MDD – Monde de Dév
 
-## Front
+**MDD (Monde de Dév)** is a minimal social network for developers.  
+The project is built as a full-stack application using Angular for the frontend and Spring Boot for the backend.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+## 📖 Learn More
 
-Don't forget to install your node_modules before starting (`npm install`).
+For installation, setup, and code structure, please refer to the detailed README files:
 
-### Development server
+- 📘 [Frontend README](./frontend/README.md)
+- 📗 [Backend README](./back/README.md)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+---
 
-### Build
+## 👤 Author
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-### Where to start
-
-As you may have seen if you already started the app, a simple home page containing a logo, a title and a button is available. If you take a look at its code (in the `home.component.html`) you will see that an external UI library is already configured in the project.
-
-This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your interfaces quickly.
-
-Note: I recommend to use material however it's not mandatory, if you prefer you can get rid of it.
-
-Good luck!
+**Natallia Skiba** — Full-Stack Developer (Java & Angular)

@@ -8,5 +8,4 @@ public class ArticleCreateRequest {
     private String content;
     private Long topicId;
 
-    private Long authorId; // temp
  }
